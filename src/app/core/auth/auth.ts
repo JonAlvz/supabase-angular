@@ -2,10 +2,11 @@ import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { UserApi } from '../supabase/user-api';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Autofocus } from '../../shared/directives/auto-focus/autofocus';
 
 @Component({
   selector: 'app-auth',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, Autofocus],
   templateUrl: './auth.html',
   styleUrl: './auth.css',
 })
