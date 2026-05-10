@@ -1,0 +1,27 @@
+<div>
+  @if (_avatarUrl) {
+    <img [src]="_avatarUrl" alt="Avatar" class="avatar image" style="height: 150px; width: 150px" />
+  }
+</div>
+@if (!_avatarUrl) {
+  <div class="avatar no-image" style="height: 150px; width: 150px"></div>
+}
+<div style="width: 150px">
+  <button
+    type="button"
+    class="w-full py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-800 disabled:opacity-50 cursor-pointer"
+    (click)="singleInput.click()"
+    [disabled]="uploading()"
+  >
+    {{ uploading() ? 'Uploading ...' : 'Upload avatar' }}
+  </button>
+  <input
+    #singleInput
+    style="visibility: hidden; position: absolute"
+    type="file"
+    id="single"
+    accept="image/*"
+    (change)="uploadAvatar($event)"
+    [disabled]="uploading()"
+  />
+</div>

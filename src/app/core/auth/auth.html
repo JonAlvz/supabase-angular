@@ -1,14 +1,18 @@
-<div class="flex justify-center items-center min-h-screen">
-  <div class="w-full max-w-md" aria-live="polite">
+<div class="flex justify-center items-center min-h-screen bg-gray-900">
+  <div
+    class="w-full max-w-md bg-gray-300 p-6 rounded-lg border-2 border-blue-600"
+    aria-live="polite"
+  >
     <h1 class="text-2xl font-bold mb-2">Supabase + Angular</h1>
     <p class="text-gray-600 mb-6">Sign in via magic link with your email below</p>
     <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
       <div class="flex flex-col gap-1">
         <label for="email" class="text-sm font-medium">Email</label>
+        <!-- TODO: Add autofocus, via Angular directive -->
         <input
           id="email"
           formControlName="email"
-          class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="border border-blue-600 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           type="email"
           placeholder="Your email"
         />
@@ -16,7 +20,7 @@
       <div>
         <button
           type="submit"
-          class="w-full py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+          class="w-full py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-800 disabled:opacity-50 cursor-pointer"
           [disabled]="loading()"
         >
           {{ loading() ? 'Loading' : 'Send magic link' }}

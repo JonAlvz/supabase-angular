@@ -1,6 +1,7 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { UserApi } from '../supabase/user-api';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -8,15 +9,29 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
   templateUrl: './auth.html',
   styleUrl: './auth.css',
 })
-export class Auth {
+export class Auth implements OnInit {
   private readonly supabase = inject(UserApi);
   private readonly formBuilder = inject(FormBuilder);
+  private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
   loading = signal(false);
 
   signInForm = this.formBuilder.group({
     email: [''],
   });
+
+  ngOnInit() {
+    const {
+      data: { subscription },
+    } = this.supabase.authChanges(async (_event, session) => {
+      if (session) {
+        await this.router.navigate(['/account']);
+      }
+    });
+
+    this.destroyRef.onDestroy(() => subscription.unsubscribe());
+  }
 
   async onSubmit() {
     try {
